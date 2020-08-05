@@ -61,7 +61,7 @@ except ImportError:
         from errors import UnsupportedPythonVersion
 
 try:
-    from yaml import load, safe_load, dump  # noqa: F401
+    from yaml import load, safe_load, dump
 
     try:
         from yaml import CLoader as Loader, CDumper as Dumper
@@ -95,7 +95,7 @@ class get_config_file(object):
 
     """
 
-    def __init__(self, config_file_name: str, safe: bool = False):
+    def __init__(self, config_file_name: str, safe: bool = False, defaults: dict = {}):
         """
         You should use this: this is the main API.
 
@@ -114,11 +114,22 @@ class get_config_file(object):
             if not isinstance(config_file_name, str)
             else config_file_name
         )
+        defaults = dict(defaults) if not isinstance(defaults, dict) else defaults
+
         safe = bool(safe) if not isinstance(safe, bool) else safe
         if Path("~/Xfig_index.yml").exists() and Path("~/Xfig_index.yml").is_file():
-            cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader).get(
-                config_file_name
-            )
+            try:
+                cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader).get(
+                    config_file_name
+                )
+            except AttributeError:  # There is nothing in the config file
+                new_config = Path("~/{}.yml".format(config_file_name))
+                if not new_config.exists():
+                    new_config.touch()
+                new_config.write_text(
+                    dump(defaults, Loader=Loader, default_flow_style=False)
+                )
+                cfp = defaults
 
             # Check if the key points to something
             if cfp is not None:

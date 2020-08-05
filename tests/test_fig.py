@@ -16,6 +16,7 @@ Desc: THIS IS A TEST.
 from sys import path
 
 path.insert(0, ".")
+path.insert(0, "..")
 from relaX.fig import get_config_file
 
 
@@ -25,5 +26,5 @@ class TestClass(object):
         assert stuff == None
 
     def test_spam(self):
-        stuff = get_config_file("test")["have_spam"]
+        stuff = get_config_file("test", defaults={"have_spam": True})["have_spam"]
         assert stuff == True
