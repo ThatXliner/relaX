@@ -44,7 +44,7 @@ except ModuleNotFoundError:
             return p(path).expanduser()
 
     except ModuleNotFoundError:
-        raise UnsupportedPythonVersion(
+        raise ModuleNotFoundError(
             "You need to install the pathlib2 package. Try `python3 -m pip install \
 pathlib2` or `pip install pathlib2`"
         )
@@ -116,11 +116,13 @@ class get_config_file(object):
         )
         safe = bool(safe) if not isinstance(safe, bool) else safe
         if Path("~/Xfig_index.yml").exists() and Path("~/Xfig_index.yml").is_file():
-            cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader)
+            cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader).get(
+                config_file_name
+            )
 
             # Check if the key points to something
             if cfp is not None:
-                cfp = Path(str(cfp[config_file_name]))
+                cfp = Path(str(cfp))
                 if cfp.exists() and cfp.is_file():
                     if safe:  # If safe mode is enabled
                         self.main = safe_load(cfp.read_text(), Loader=Loader)

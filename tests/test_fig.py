@@ -19,5 +19,11 @@ path.insert(0, ".")
 from relaX.fig import get_config_file
 
 
-def test():
-    stuff = get_config_file("Unexisting config file name").get("nothing")
+class TestClass(object):
+    def test_no(self):
+        stuff = get_config_file("Unexisting config file name").get("nothing")
+        assert stuff == None
+
+    def test_spam(self):
+        stuff = get_config_file("test")["have_spam"]
+        assert stuff == True
