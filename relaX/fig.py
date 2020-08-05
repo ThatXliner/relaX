@@ -28,10 +28,6 @@ relax.
 # Module getting #########################################################################
 ##########################################################################################
 try:
-    from .errors import UnsupportedPythonVersion
-except ImportError:
-    from errors import UnsupportedPythonVersion
-try:
     from pathlib2 import Path as p  # noqa: F401
 
     def Path(path) -> p:
@@ -52,6 +48,18 @@ except ModuleNotFoundError:
             "You need to install the pathlib2 package. Try `python3 -m pip install \
 pathlib2` or `pip install pathlib2`"
         )
+
+try:  # Try basic import
+    from .errors import UnsupportedPythonVersion
+except ImportError:
+    try:  # Maybe no dot?
+        from errors import UnsupportedPythonVersion
+    except ImportError:  # Editing the sys.path is a last resort
+        from sys import path
+
+        path.insert(0, Path(Path(__file__).parent))
+        from errors import UnsupportedPythonVersion
+
 try:
     from yaml import load, safe_load, dump  # noqa: F401
 except ModuleNotFoundError:

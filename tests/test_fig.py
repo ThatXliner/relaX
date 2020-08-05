@@ -14,9 +14,10 @@ Desc: THIS IS A TEST.
 
 """
 from sys import path
+from pathlib2 import Path
 
-path.insert(0, "../relaX")
-from fig import get_config_file
+path.insert(0, Path(Path(Path(__file__).parent).parent / "relaX"))
+from relaX.fig import get_config_file
 
 
 def test():

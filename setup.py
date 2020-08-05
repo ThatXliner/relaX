@@ -29,6 +29,9 @@ setup(
     packages=find_packages(exclude=["tests"], include=["relaX"]),
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: CPython",
@@ -38,7 +41,7 @@ setup(
         "Natural Language :: English",
         # "Topic :: Utilities",
     ],
-    python_requires=">=3.4",
+    python_requires=">=3.5",
     include_package_data=True,
     install_requires=[line for line in REQUIREMENTS if not line.startswith("#")],
 )
