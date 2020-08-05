@@ -80,7 +80,8 @@ install pyyaml` or `pip install pyyaml`"
 
 
 class get_config_file(object):
-    """You should use this.
+    """
+    You should use this.
 
     This is the main API.
 
@@ -95,9 +96,8 @@ class get_config_file(object):
     """
 
     def __init__(self, config_file_name: str, safe: bool = False):
-        """You should use this.
-
-        This is the main API.
+        """
+        You should use this: this is the main API.
 
         :param str config_file_name: This is the name of the project you want to extract
         the configuration from.

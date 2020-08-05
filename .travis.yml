@@ -8,10 +8,6 @@ python:
   - "3.5"
   # - "3.9"
   # 3.9 doesn't exist yet.
-before_install:
-  - touch ~/Xfig_index.yml && touch ~/config.yml
-  - echo "---\ntest: ~/config.yml" > ~/Xfig_index.yml && echo '---\nhave_spam: yes' > ~/config.yml
-
 install:
   # - pip install pytest-asyncio
   - pip install -r requirements.txt
