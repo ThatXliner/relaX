@@ -62,6 +62,12 @@ except ImportError:
 
 try:
     from yaml import load, safe_load, dump  # noqa: F401
+
+    try:
+        from yaml import CLoader as Loader, CDumper as Dumper
+    except ImportError:
+        from yaml import Loader, Dumper
+
 except ModuleNotFoundError:
     raise ModuleNotFoundError(
         "You have to install the pyyaml package for relaX.fig . Try `python3 -m pip \
@@ -110,17 +116,19 @@ class get_config_file(object):
         )
         safe = bool(safe) if not isinstance(safe, bool) else safe
         if Path("~/Xfig_index.yml").exists() and Path("~/Xfig_index.yml").is_file():
-            cfp = str(load(Path("~/Xfig_index.yml").read_text())[config_file_name])
+            cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader)
+
             # Check if the key points to something
             if cfp is not None:
-                cfp = Path(cfp)
+                cfp = Path(str(cfp[config_file_name]))
+                if cfp.exists() and cfp.is_file():
+                    if safe:  # If safe mode is enabled
+                        self.main = safe_load(cfp.read_text(), Loader=Loader)
+                    else:  # Or it isn't
+                        self.main = load(cfp.read_text(), Loader=Loader)
             else:
                 self.main = {}
-            if cfp.exists() and cfp.is_file():
-                if safe:  # If safe mode is enabled
-                    self.main = safe_load(cfp.read_text())
-                else:  # Or it isn't
-                    self.main = load(cfp.read_text())
+
         else:  # The config index file doesn't exist
             Path("~").touch("Xfig_index.yml")
             Path("~/Xfig_index.yml").write_text(
