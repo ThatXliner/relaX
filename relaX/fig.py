@@ -140,7 +140,7 @@ class get_config_file(object):
 
     def __getitem__(self, key):
         """Magic method for getitem."""
-        return self.main[key]
+        return self.main.get(key)
 
     def __len__(self):
         """Magic method for len."""
