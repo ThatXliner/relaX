@@ -23,7 +23,8 @@ Example:
 relax.
 
 """
-
+# TODO: Make the main API robust and relax-grade
+# TODO: Choose between a function or an object (which will benefit more)
 ##########################################################################################
 # Module getting #########################################################################
 ##########################################################################################
@@ -133,22 +134,38 @@ class get_config_file(object):
                 cfp = defaults
 
             # Check if the key points to something
-            if cfp is not None:
-                cfp = Path(str(cfp))
-                if cfp.exists() and cfp.is_file():
-                    if safe:  # If safe mode is enabled
-                        self.main = safe_load(cfp.read_text(), Loader=Loader)
-                    else:  # Or it isn't
-                        self.main = load(cfp.read_text(), Loader=Loader)
             else:
-                self.main = {}
+                if cfp is not None:
+                    cfp = Path(str(cfp))
+                    if cfp.exists() and cfp.is_file():
+                        if safe:  # If safe mode is enabled
+                            self.main = safe_load(cfp.read_text(), Loader=Loader)
+                        else:  # Or it isn't
+                            self.main = load(cfp.read_text(), Loader=Loader)
+                else:
+                    self.main = {}
 
         else:  # The config index file doesn't exist
             Path("~").touch("Xfig_index.yml")
             Path("~/Xfig_index.yml").write_text(
                 "# This file was generated automatically by Xfig."
             )
-            self.main = {}
+            new_config = Path("~/{}.yml".format(config_file_name))
+            if not new_config.exists():
+                new_config.touch()
+            new_config.write_text(
+                dump(defaults, Dumper=Dumper, default_flow_style=False)
+            )
+            cfp = defaults
+            if cfp is not None:
+                cfp = Path(str(cfp))
+            if cfp.exists() and cfp.is_file():
+                if safe:  # If safe mode is enabled
+                    self.main = safe_load(cfp.read_text(), Loader=Loader)
+                else:  # Or it isn't
+                    self.main = load(cfp.read_text(), Loader=Loader)
+            else:
+                self.main = {}
 
     def __getitem__(self, key):
         """Magic method for getitem."""
