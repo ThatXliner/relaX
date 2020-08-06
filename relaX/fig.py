@@ -128,7 +128,7 @@ class get_config_file(object):
                 if not new_config.exists():
                     new_config.touch()
                 new_config.write_text(
-                    dump(defaults, Loader=Loader, default_flow_style=False)
+                    dump(defaults, Dumper=Dumper, default_flow_style=False)
                 )
                 cfp = defaults
 
