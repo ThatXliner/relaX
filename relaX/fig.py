@@ -123,6 +123,7 @@ class get_config_file(object):
                     config_file_name
                 )
             except AttributeError:  # There is nothing in the config file
+                # TODO: Verify this
                 new_config = Path("~/{}.yml".format(config_file_name))
                 if not new_config.exists():
                     new_config.touch()
