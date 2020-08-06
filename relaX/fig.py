@@ -31,8 +31,8 @@ relax.
 try:
     from pathlib2 import Path as p  # noqa: F401
 
-    def Path(path) -> p:
-        """You should not use this. This is little shortcut."""
+    def _Path(path) -> p:
+
         return p(path).expanduser()
 
 
@@ -40,8 +40,8 @@ except ModuleNotFoundError:
     try:
         from pathlib import Path as p  # noqa: F401
 
-        def Path(path) -> p:
-            """You should not use this. This is little shortcut."""
+        def _Path(path) -> p:
+
             return p(path).expanduser()
 
     except ModuleNotFoundError:
@@ -58,7 +58,7 @@ except ImportError:
     except ImportError:  # Editing the sys.path is a last resort
         from sys import path
 
-        path.insert(0, Path(Path(__file__).parent))
+        path.insert(0, str(_Path(__file__).parent))
         from errors import UnsupportedPythonVersion
 
 try:
@@ -83,169 +83,83 @@ install pyyaml` or `pip install pyyaml`"
 def get_config_file(
     config_file_name: str, safe: bool = False, defaults: dict = {}
 ) -> dict:
+    """
+    You should use this: this is the main API.
+
+    :param str config_file_name: This is the name of the project you want to extract
+    the configuration from.
+    :param bool safe: YAML may contain python objects. If this is set to False,
+    you'll be `pickling` tthe python objects. By setting the safe option to `True`,
+    you'll not be able to create python objects. Defaults to False.
+    :return: This returns a dictionary containing the parsed YAML file. May return the
+    defaults if any error(s) occurred.
+    :rtype: dict
+
+    """
+    ###############################
+    # Type verification ###########
+    ###############################
     config_file_name = (
         str(config_file_name)
         if not isinstance(config_file_name, str)
         else config_file_name
     )
     defaults = dict(defaults) if not isinstance(defaults, dict) else defaults
-
     safe = bool(safe) if not isinstance(safe, bool) else safe
-    if Path("~/Xfig_index.yml").exists() and Path("~/Xfig_index.yml").is_file():
+    ###############################
+    XFIG_PATH = _Path("~/Xfig_index.yml")
+    if XFIG_PATH.exists() and XFIG_PATH.is_file():
         try:
-            cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader).get(
-                config_file_name
-            )
+            cfp = load(XFIG_PATH.read_text(), Loader=Loader).get(config_file_name)
         except AttributeError:  # There is nothing in the config file
-            # TODO: Verify this
-            new_config = Path("~/{}.yml".format(config_file_name))
+            # Create the config file from defaults given
+            new_config = _Path("~/{}.yml".format(config_file_name))
             if not new_config.exists():
                 new_config.touch()
             new_config.write_text(
-                dump(defaults, Dumper=Dumper, default_flow_style=False)
+                dump(str(defaults), Dumper=Dumper, default_flow_style=False)
             )
-            cfp = defaults
+            return defaults
 
         # Check if the key points to something
         else:
             if cfp is not None:
-                cfp = Path(str(cfp))
+                cfp = _Path(str(cfp))
                 if cfp.exists() and cfp.is_file():
                     if safe:  # If safe mode is enabled
                         return safe_load(cfp.read_text(), Loader=Loader)
                     else:  # Or it isn't
                         return load(cfp.read_text(), Loader=Loader)
+                else:  # It doesn't exist
+                    # Create the config file from defaults given
+                    new_config = _Path("~/{}.yml".format(config_file_name))
+                    if not new_config.exists():
+                        new_config.touch()
+                        new_config.write_text(
+                            dump(
+                                str(defaults), Dumper=Dumper, default_flow_style=False,
+                            )
+                        )
+                    else:  # The 'new' config file exists
+                        new_config.write_text(
+                            dump(
+                                str(
+                                    {
+                                        **defaults,
+                                        **load(new_config.read_text(), Loader=Loader),
+                                    }
+                                ),
+                                Dumper=Dumper,
+                                default_flow_style=False,
+                            )
+                        )
+                    return defaults
             else:
-                return {}
+                return defaults
 
     else:  # The config index file doesn't exist
-        Path("~").touch("Xfig_index.yml")
-        Path("~/Xfig_index.yml").write_text(
-            "# This file was generated automatically by Xfig."
+        XFIG_PATH.touch()
+        XFIG_PATH.write_text(
+            "---\n# This file was generated automatically by relaX.fig .\n"
         )
-        new_config = Path("~/{}.yml".format(config_file_name))
-        if not new_config.exists():
-            new_config.touch()
-        new_config.write_text(dump(defaults, Dumper=Dumper, default_flow_style=False))
-        cfp = defaults
-        if cfp is not None:
-            cfp = Path(str(cfp))
-        if cfp.exists() and cfp.is_file():
-            if safe:  # If safe mode is enabled
-                return safe_load(cfp.read_text(), Loader=Loader)
-            else:  # Or it isn't
-                return load(cfp.read_text(), Loader=Loader)
-        else:
-            return {}
-
-
-# class get_config_file(object):
-#     """
-#     You should use this.
-#
-#     This is the main API.
-#
-#     :param str config_file_name: This is the name of the project you want to extract the
-#     configuration from.
-#     :param bool safe: YAML may contain python objects. If this is set to False, you'll be
-#     `pickling` tthe python objects. By setting the safe option to `True`, you'll not be
-#     able to create python objects. Defaults to False.
-#     :attr type main: This is the internal dict object that was extracted from the
-#     configuration file.
-#
-#     """
-#
-#     def __init__(self, config_file_name: str, safe: bool = False, defaults: dict = {}):
-#         """
-#         You should use this: this is the main API.
-#
-#         :param str config_file_name: This is the name of the project you want to extract
-#         the configuration from.
-#         :param bool safe: YAML may contain python objects. If this is set to False,
-#         you'll be `pickling` tthe python objects. By setting the safe option to `True`,
-#         you'll not be able to create python objects. Defaults to False.
-#         :return: This returns a dictionary containing the parsed YAML file.
-#         May return an empty dictionary if the file couldn't be found.
-#         :rtype: dict
-#
-#         """
-#         config_file_name = (
-#             str(config_file_name)
-#             if not isinstance(config_file_name, str)
-#             else config_file_name
-#         )
-#         defaults = dict(defaults) if not isinstance(defaults, dict) else defaults
-#
-#         safe = bool(safe) if not isinstance(safe, bool) else safe
-#         if Path("~/Xfig_index.yml").exists() and Path("~/Xfig_index.yml").is_file():
-#             try:
-#                 cfp = load(Path("~/Xfig_index.yml").read_text(), Loader=Loader).get(
-#                     config_file_name
-#                 )
-#             except AttributeError:  # There is nothing in the config file
-#                 # TODO: Verify this
-#                 new_config = Path("~/{}.yml".format(config_file_name))
-#                 if not new_config.exists():
-#                     new_config.touch()
-#                 new_config.write_text(
-#                     dump(defaults, Dumper=Dumper, default_flow_style=False)
-#                 )
-#                 cfp = defaults
-#
-#             # Check if the key points to something
-#             else:
-#                 if cfp is not None:
-#                     cfp = Path(str(cfp))
-#                     if cfp.exists() and cfp.is_file():
-#                         if safe:  # If safe mode is enabled
-#                             self.main = safe_load(cfp.read_text(), Loader=Loader)
-#                         else:  # Or it isn't
-#                             self.main = load(cfp.read_text(), Loader=Loader)
-#                 else:
-#                     self.main = {}
-#
-#         else:  # The config index file doesn't exist
-#             Path("~").touch("Xfig_index.yml")
-#             Path("~/Xfig_index.yml").write_text(
-#                 "# This file was generated automatically by Xfig."
-#             )
-#             new_config = Path("~/{}.yml".format(config_file_name))
-#             if not new_config.exists():
-#                 new_config.touch()
-#             new_config.write_text(
-#                 dump(defaults, Dumper=Dumper, default_flow_style=False)
-#             )
-#             cfp = defaults
-#             if cfp is not None:
-#                 cfp = Path(str(cfp))
-#             if cfp.exists() and cfp.is_file():
-#                 if safe:  # If safe mode is enabled
-#                     self.main = safe_load(cfp.read_text(), Loader=Loader)
-#                 else:  # Or it isn't
-#                     self.main = load(cfp.read_text(), Loader=Loader)
-#             else:
-#                 self.main = {}
-#
-#     def __getitem__(self, key):
-#         """Magic method for getitem."""
-#         return self.main.get(key)
-#
-#     def __len__(self):
-#         """Magic method for len."""
-#         return len(self.main)
-#
-#     def __dict__(self):
-#         """Magic method for dict."""
-#         return dict(self.main)
-#
-#     def __repr__(self):
-#         """Magic method for repr."""
-#         return repr(self.main)
-#
-#     def __str__(self):
-#         """Magic method for str."""
-#         return str(self.main)
-#
-#     def get(self, *args, **kwargs):
-#         """Get method."""
-#         return self.main.get(*args, **kwargs)
+        return defaults
