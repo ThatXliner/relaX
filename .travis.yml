@@ -1,6 +1,5 @@
 language: python
-os:
-  - linux
+os: linux
 dist: xenial
 python:
   - "nightly"
@@ -11,9 +10,14 @@ python:
   - "pypy3"
   # - "3.9"
   # 3.9 doesn't exist yet.
-install:
-  # - pip install pytest-asyncio
-  - pip install -r requirements.txt
+install: >
+  if [$TRAVIS_OS_NAME = linux]; then
+    pip install -r requirements.txt;
+  else;
+    pip3 install pytest;
+    pip3 install -r requirements.txt;
+  fi
+
 cache: pip
 jobs:
   include:
@@ -23,9 +27,17 @@ jobs:
     - python: "3.6"
     - python: "3.5"
     - python: "pypy3"
-    - name: "MacOs tests"
-      os: osx
-      before_install: pip3 install pytest; pip3 install -r requirements.txt
+    - os: osx
+      osx_image: xcode12
+      lanaguge: generic
+    - os: osx
+      osx_image: xcode11
+      lanaguge: generic
+    - os: osx
+      osx_image: xcode10
+      lanaguge: generic
+    - os: osx
+      osx_image: xcode9.4
       lanaguge: generic
   fast_finish: true
   allow_failures:
