@@ -83,3 +83,30 @@ def tommorrow() -> str:
 
     """
     return daysAfterToday(1)
+
+
+class Date(object):
+    def __init__(
+        self,
+        month=time.gmtime(time.time()).tm_mon,
+        day=time.gmtime(time.time()).tm_mday,
+        year=time.gmtime(time.time()).tm_year,
+    ):
+        self.month = int(float(month))
+        self.day = int(float(day))
+        self.year = int(float(year))
+
+        self.date = [self.month, self.day, self.year]
+        self.json_date = dict(zip(["month", "day", "year"], self.date))
+
+    def __str__(self):
+        return "/".join(self.date)
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __dict__(self):
+        return self.json_date
+
+    def __getitem__(self, key):
+        return self.json_date[key.lower()]
