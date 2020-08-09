@@ -11,7 +11,7 @@ python:
   # - "3.9"
   # 3.9 doesn't exist yet.
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements.txt || curl https://bootstrap.pypa.io/get-pip.py | python3 && pip install -r requirements.txt
   - pip3 install pytest
   - pip3 install -r requirements.txt
 
@@ -34,7 +34,7 @@ jobs:
       osx_image: xcode10
       lanaguge: generic
     - os: osx
-      osx_image: xcode9
+      osx_image: xcode9.4
       lanaguge: generic
   fast_finish: true
   allow_failures:

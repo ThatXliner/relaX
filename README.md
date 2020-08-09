@@ -28,7 +28,7 @@ You should be reassured that this program should work on _most_ computers. This 
 
 > Python **>=3.5**
 
-> MacOS **9-12**<sup><b>\*</b></sup>
+> MacOS **9.4-12**<sup><b>\*</b></sup>
 > Ubuntu **>=16**
 
 <sub>\*python3.8 only: I do not know how to test different versions of python on MacOS</sub>
