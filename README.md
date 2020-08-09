@@ -24,6 +24,15 @@ is as easy as that.
 
 RelaX was made so you could relax, instead of scratching your head.
 
+You should be reassured that this program should work on _most_ computers. This is compatible with:
+
+> Python **>=3.5**
+
+> MacOS **9-12**<sup><b>\*</b></sup>
+> Ubuntu **>=16**
+
+<sub>\*python3.8 only: I do not know how to test different versions of python on MacOS</sub>
+
 ## Getting started
 
 Hooked? Here's some tips to get you started.
