@@ -1,6 +1,7 @@
 language: python
 os:
   - linux
+dist: xenial
 python:
   - "nightly"
   - "3.8"
@@ -13,13 +14,23 @@ python:
 install:
   # - pip install pytest-asyncio
   - pip install -r requirements.txt
-script:
-  - pytest tests/ -vvv
 cache: pip
-matrix:
+jobs:
+  include:
+    - python: "nightly"
+    - python: "3.8"
+    - python: "3.7"
+    - python: "3.6"
+    - python: "3.5"
+    - python: "pypy3"
+    - os: osx
+      before_install: brew install python; pip install pytest
+      lanaguge: generic
   fast_finish: true
   allow_failures:
     - python: "nightly"
+script:
+  - pytest tests/ -vvv
 notifications:
   email:
     recipients:
