@@ -13,19 +13,19 @@ README = (HERE / "README.md").read_text()
 REQUIREMENTS = (HERE / "requirements.txt").read_text().split("\n")
 
 setup(
-    name="relaX",  # Replace with your own username
+    name="relaX",
     version=__version__,
     author="Bryan Hu",
     author_email="bryan.hu.cn@gmail.com",
     description="A library of multiple useful functions and scripts for python.",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/ThatXliner/relaX",
-    # project_urls={
-    #     "Source Code": "https://github.com/ThatXliner/stacksearch",
-    #     "Documentation": "https://stacksearch.readthedocs.io/en/latest/index.html",
-    #     "Tracker": "https://github.com/ThatXliner/stacksearch/issues",
-    # },
+    # url="https://github.com/ThatXliner/relaX",
+    project_urls={
+        "Source Code": "https://github.com/ThatXliner/relaX",
+        #     "Documentation": "https://stacksearch.readthedocs.io/en/latest/index.html",
+        "Tracker": "https://github.com/ThatXliner/relaX/issues",
+    },
     packages=find_packages(exclude=["tests"], include=["relaX"]),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -39,7 +39,7 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 3 - Alpha",
         "Natural Language :: English",
-        # "Topic :: Utilities",
+        "Topic :: Utilities",
     ],
     python_requires=">=3.5",
     include_package_data=True,

@@ -8,7 +8,7 @@ Author: Bryan Hu .
 Made with love by Bryan Hu .
 
 
-Version: vTEST
+Version: TEST
 
 Desc: THIS IS A TEST.
 
