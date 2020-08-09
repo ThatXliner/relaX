@@ -10,12 +10,8 @@ python:
   - "pypy3"
   # - "3.9"
   # 3.9 doesn't exist yet.
-install: |
-  if [$TRAVIS_OS_NAME = linux] then
-    pip install -r requirements.txt
-  else
-    pip3 install pytest
-    pip3 install -r requirements.txt
+install: >
+  if [$TRAVIS_OS_NAME = linux] then pip install -r requirements.txt; else pip3 install pytest; pip3 install -r requirements.txt;
   fi
 
 cache: pip
