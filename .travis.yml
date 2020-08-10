@@ -1,6 +1,7 @@
 language: python
 python:
   - "nightly"
+  - "3.9-dev"
   - "3.8"
   - "3.7"
   - "3.6"
@@ -52,6 +53,7 @@ jobs:
   fast_finish: true
   allow_failures:
     - python: "nightly"
+    - python: "3.9-dev"
 script:
   - pytest tests/ -vvv
 notifications:

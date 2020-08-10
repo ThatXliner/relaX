@@ -74,6 +74,8 @@ Currently, this package is not available on the Python Package Index (PyPi).
 
 #### relaX.time
 
+DONT USE YET! IT'S WIP!
+
 ## Contributing
 
 ### Code style: black
