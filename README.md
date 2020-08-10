@@ -51,8 +51,6 @@ You can clone this repository, run `cd relaX`, and then run `pip install .` (or 
 
 Here's the complete installation script:
 
-TODO: verify that the installation script is correct
-
 ```bash
 /usr/bin/git clone https://github.com/ThatXliner/relaX.git
 cd relaX
