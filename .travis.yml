@@ -36,16 +36,16 @@ jobs:
       os: osx
       osx_image: xcode12
       lanaguge: generic
-    - name: "Unbuntu 12.04"
+    - name: "Unbuntu 12"
       os: linux
       dist: precise
-    - name: "Ubuntu 14.04"
+    - name: "Ubuntu 14"
       os: linux
       dist: trusty
-    - name: "Ubuntu 16.04"
+    - name: "Ubuntu 16"
       os: linux
       dist: xenial
-    - name: "Ubuntu 18.04"
+    - name: "Ubuntu 18"
       os: linux
       dist: bionic
 

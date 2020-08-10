@@ -24,14 +24,16 @@ is as easy as that.
 
 RelaX was made so you could relax, instead of scratching your head.
 
+### Why you should relax...
+
+**NOTICE: This project is currently still in pre-alpha. Any contributions would be greatly appreciated. You can learn more about how to contribute [here](#contributing).**
+
 You should be reassured that this program should work on _most_ computers. This is compatible with:
 
-> Python **>=3.5**
-
-> MacOS **9.4-12**<sup><b>\*</b></sup>
-> Ubuntu **>=16**
-
-<sub>\*python3.8 only: I do not know how to test different versions of python on MacOS</sub>
+> - CPython versions **3.5 to 3.10**
+> - PyPy3 compatible
+> - MacOS python3.7 for _Xcode versions_ **9.4** _to_ **11**, python3.8 for _Xcode version_ **12**
+> - Ubuntu versions tested for support: **_14.04_**, **_16.04_**, and **_18.04_**
 
 ## Getting started
 
