@@ -1,4 +1,6 @@
 language: python
+dist: xenial
+os: linux
 python:
   - "nightly"
   - "3.9-dev"
@@ -20,23 +22,15 @@ jobs:
     - name: "MacOS Xcode9.4 test"
       os: osx
       osx_image: xcode9.4
-      lanaguge: generic
     - name: "MacOS Xcode10 test"
       os: osx
       osx_image: xcode10
-      lanaguge: generic
     - name: "MacOS Xcode11 test"
       os: osx
       osx_image: xcode11
-      lanaguge: generic
     - name: "MacOS Xcode12 test"
       os: osx
       osx_image: xcode12
-      lanaguge: generic
-    - name: "MacOS Xcode12 test"
-      os: osx
-      osx_image: xcode12
-      lanaguge: generic
     - name: "Unbuntu 12"
       os: linux
       dist: precise
