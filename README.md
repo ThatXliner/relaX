@@ -43,7 +43,7 @@ Hooked? Here's some tips to get you started.
 
 Currently, this package is not available on the Python Package Index (PyPi).
 
-But there are otheer installation options available.
+But there are other installation options available.
 
 #### via `git clone`
 
@@ -74,7 +74,7 @@ Currently, this package is not available on the Python Package Index (PyPi).
 
 #### relaX.time
 
-DONT USE YET! IT'S WIP!
+DON'T USE YET! IT'S WIP!
 
 ## Contributing
 
