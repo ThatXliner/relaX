@@ -1,6 +1,4 @@
 language: python
-os: linux
-dist: xenial
 python:
   - "nightly"
   - "3.8"
@@ -18,24 +16,39 @@ install:
 cache: pip
 jobs:
   include:
-    - python: "nightly"
-    - python: "3.8"
-    - python: "3.7"
-    - python: "3.6"
-    - python: "3.5"
-    - python: "pypy3"
-    - os: osx
-      osx_image: xcode12
-      lanaguge: generic
-    - os: osx
-      osx_image: xcode11
-      lanaguge: generic
-    - os: osx
-      osx_image: xcode10
-      lanaguge: generic
-    - os: osx
+    - name: "MacOS Xcode9.4 test"
+      os: osx
       osx_image: xcode9.4
       lanaguge: generic
+    - name: "MacOS Xcode10 test"
+      os: osx
+      osx_image: xcode10
+      lanaguge: generic
+    - name: "MacOS Xcode11 test"
+      os: osx
+      osx_image: xcode11
+      lanaguge: generic
+    - name: "MacOS Xcode12 test"
+      os: osx
+      osx_image: xcode12
+      lanaguge: generic
+    - name: "MacOS Xcode12 test"
+      os: osx
+      osx_image: xcode12
+      lanaguge: generic
+    - name: "Unbuntu 12.04"
+      os: linux
+      dist: precise
+    - name: "Ubuntu 14.04"
+      os: linux
+      dist: trusty
+    - name: "Ubuntu 16.04"
+      os: linux
+      dist: xenial
+    - name: "Ubuntu 18.04"
+      os: linux
+      dist: bionic
+
   fast_finish: true
   allow_failures:
     - python: "nightly"
