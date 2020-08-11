@@ -10,14 +10,14 @@ version: "1.2.0.{build}"
 
 build: on
 
-before_build:
-  - pip3 install --upgrade pip3
+# before_build:
+#   - sh: pip3 install --upgrade pip3
 
 build_script:
-  - make python3.8 || make python3
+  - sh: make python3.8 || make python3
 
 install:
-  - pip install pytest
+  - sh: pip install pytest
 
 test_script:
-  - pytest
+  - sh: pytest
