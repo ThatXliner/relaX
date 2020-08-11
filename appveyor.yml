@@ -1,14 +1,20 @@
 ---
 # appveyor.yml
-version: "1.0.{build}"
-environment:
-  matrix:
-    - TOXENV: py27
-    - TOXENV: py35
-    - TOXENV: py36
-    - TOXENV: py37
+version: "1.2.0.{build}"
+# environment:
+#   matrix:
+#     - TOXENV: py27
+#     - TOXENV: py35
+#     - TOXENV: py36
+#     - TOXENV: py37
 
-build: off
+build: on
+
+before_build:
+  - pip install --upgrade pip py_compile
+
+build_script:
+  - make python3.8 || make python3
 
 install:
   - pip install pytest
