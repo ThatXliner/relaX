@@ -11,7 +11,7 @@ version: "1.2.0.{build}"
 build: on
 
 before_build:
-  - pip install --upgrade pip py_compile
+  - pip3 install --upgrade pip3
 
 build_script:
   - make python3.8 || make python3
