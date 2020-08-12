@@ -10,7 +10,7 @@
 
 # The relaX library
 
-> _"A collection of usefulness.."_
+> _"A collection of usefulness..."_
 
 ## What is this
 

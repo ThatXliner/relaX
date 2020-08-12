@@ -1,4 +1,4 @@
 """See README."""
 
-__version__ = "1.3.2"
+__version__ = "1.4"
 __author__ = ["Bryan Hu"]
