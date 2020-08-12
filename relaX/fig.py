@@ -48,7 +48,7 @@ except ModuleNotFoundError:
             "You need to install the pathlib2 package. Try `python3 -m pip install "
             "pathlib2` or `pip install pathlib2`"
         )
-import sys
+# import sys
 
 # try:  # Try basic import
 #     from .errors import UnsupportedPythonVersion
@@ -78,24 +78,6 @@ install pyyaml` or `pip install pyyaml`"
 ##########################################################################################
 # Python version/implementation check ####################################################
 ##########################################################################################
-
-
-_PY_VER = sys.version_info
-PV = [_PY_VER.major, _PY_VER.minor, _PY_VER.micro]
-AT_LEAST = [3, 5, 6]
-_RAISE_TEXT = UnsupportedPythonVersion(
-    "Your Python version ({}) is not supported. ".format(".".join(map(str, PV)))
-    + "(At least Python {} is required)".format(".".join(map(str, AT_LEAST)))
-)
-if PV[0] < AT_LEAST[0]:
-    raise _RAISE_TEXT
-elif (
-    PV[0] >= AT_LEAST[0]
-    and PV[1] < AT_LEAST[1]
-    or (PV[1] >= AT_LEAST[1] and PV[2] < AT_LEAST[2])
-):
-    raise _RAISE_TEXT
-
 
 ##########################################################################################
 # Main API ###############################################################################
