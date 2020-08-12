@@ -50,7 +50,6 @@ except ModuleNotFoundError:
         )
 import sys
 
-<<<<<<< HEAD
 # try:  # Try basic import
 #     from .errors import UnsupportedPythonVersion
 # except ImportError:
@@ -61,17 +60,6 @@ import sys
 #
 #         path.insert(0, str(_Path(__file__).parent))
 #         from errors import UnsupportedPythonVersion
-=======
-try:  # Try basic import
-    from .errors import UnsupportedPythonVersion
-except ImportError:
-    try:  # Maybe no dot?
-        from errors import UnsupportedPythonVersion
-    except ImportError:  # Editing the sys.path is a last resort
-
-        sys.path.insert(0, str(_Path(__file__).parent))
-        from errors import UnsupportedPythonVersion
->>>>>>> 4f315dbccdfb5bbee8d6654c0ad159bdd8008140
 
 try:
     from yaml import load, safe_load, dump
