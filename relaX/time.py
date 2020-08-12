@@ -150,7 +150,9 @@ class Date(object):
             amount = int(float(amount))
         except ValueError:
             raise ValueError("Invalid amount value")
-        return str(Date(**self.json_date).increment_days(amount * -1))
+        d = Date(**self.json_date)
+        d.increment_days(amount * -1)
+        return str(d)
 
     def days_after_today(self, amount: int = 1, *args, **kwargs) -> str:
         """Returns a string representing some number of days after today.
