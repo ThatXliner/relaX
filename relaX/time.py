@@ -17,80 +17,46 @@ Desc: A collection of useful time-related functions and objects.
 import time
 
 
-def getTime() -> str:
-    """Returns the current time.
-
-    In a easy-to-process, human-readable, format. Kinda raw though...
-    """
-    return str(time.strftime(time.asctime(time.localtime(time.time()))))
-
-
-def daysBeforeToday(amount: int) -> str:
-    """Returns a string representing some number of days before today.
-
-    :param int amount: How many days before today do you want to get?
-    :return: A string of the date described above.
-    :rtype: str
-
-    """
-    amount = int(float(amount)) if isinstance(amount, int) else amount
-    _ = time.gmtime(time.time())
-    return str(
-        str(_.tm_mon) + "/" + str(int(_.tm_mday - amount)) + "/" + str(_.tm_year)
-    )
-
-
-def daysAfterToday(amount: int) -> str:
-    """Returns a string representing some number of days after today.
-
-    :param int amount: How many days after today do you want to get?
-    :return: A string of the date described above.
-    :rtype: str
-
-    """
-    amount = int(float(amount)) if isinstance(amount, int) else amount
-    return daysBeforeToday(amount * -1)  # Double negatives
-
-
 def yesterday() -> str:
-    """
-    Returns yesterday's date.
+    """Returns a formatted string of yesterday's date.
 
-    :return: A string of the date described above.
+    :return: The formatted string of yesterday's date.
     :rtype: str
 
     """
-    return daysBeforeToday(1)
+    return str(Date().yesterday())
 
 
 def today() -> str:
-    """
-    Returns today's date.
+    """Returns a formatted string of today's date.
 
-    :return: A string of the date described above.
+    :return: The formatted string of today's date.
     :rtype: str
 
     """
-    return daysAfterToday(0)
+    return str(Date())
 
 
-def tommorrow() -> str:
-    """
-    Returns tommorrow's date.
+def tomorrow() -> str:
+    """Returns a formatted string of tomorrow's date.
 
-    :return: A string of the date described above.
+    :return: The formatted string of tomorrow's date.
     :rtype: str
 
     """
-    return daysAfterToday(1)
+    return str(Date().tomorrow())
 
 
 class Date(object):
+    """A relaX-grade date object."""
+
     def __init__(
         self,
         month=time.gmtime(time.time()).tm_mon,
         day=time.gmtime(time.time()).tm_mday,
         year=time.gmtime(time.time()).tm_year,
+        *args,
+        **kwargs,
     ) -> None:
         """This date object is a object wrapper of all of the functions defined in this file.
 
@@ -104,12 +70,21 @@ class Date(object):
         :rtype: None
 
         """
-        self.month = abs(int(float(month)))
+        try:
+            self.month = abs(int(float(month)))
+        except ValueError:
+            raise ValueError("Invalid month")
         tmonth = self.month  # Optimization.
         self.month = tmonth if tmonth <= 12 else (tmonth % 12) + 1
-        self.year = abs(int(float(year)))
+        try:
+            self.year = abs(int(float(year)))
+        except ValueError:
+            raise ValueError("Invalid year")
         mday = self._calculate_mday(tmonth, self.year)
-        self.day = abs(int(float(day)))
+        try:
+            self.day = abs(int(float(day)))
+        except ValueError:
+            raise ValueError("Invalid day")
         tday = self.day  # Optimization.
         self.day = tday if tday <= mday else (tday % mday) + 1
         self.date = [self.month, self.day, self.year]
@@ -138,7 +113,7 @@ class Date(object):
         """
         return self.json_date.get(key.lower())
 
-    def _calculate_mday(self, tmonth, year):
+    def _calculate_mday(self, tmonth, year, *args, **kwargs):
         if tmonth % 2 == 0:  # Even month
             if tmonth == 2:
                 mday = 29 if year % 4 == 0 else 28
@@ -148,8 +123,8 @@ class Date(object):
             mday = 31
         return mday
 
-    def update_time(self) -> None:
-        """To update the time.
+    def sync_time(self, *args, **kwargs) -> None:
+        """To update the time to your local timezone.
 
         :return: Nothing.
         :rtype: None
@@ -163,7 +138,7 @@ class Date(object):
         self.date = [self.month, self.day, self.year]
         self.json_date = dict(zip(["month", "day", "year"], self.date))
 
-    def days_before_today(self, amount: int) -> str:
+    def days_before_today(self, amount: int = 1, *args, **kwargs) -> str:
         """Returns a string representing some number of days before today.
 
         :param int amount: How many days before today do you want to get?
@@ -171,15 +146,31 @@ class Date(object):
         :rtype: str
 
         """
-        amount = int(float(amount))
-        return str(
-            Date(month=self.month, day=self.day, year=self.year).add_days(amount * -1)
-        )
+        try:
+            amount = int(float(amount))
+        except ValueError:
+            raise ValueError("Invalid amount value")
+        return str(Date(**self.json_date).increment_days(amount * -1))
 
-    def add_days(self, amount: int) -> None:
+    def days_after_today(self, amount: int = 1, *args, **kwargs) -> str:
+        """Returns a string representing some number of days after today.
+
+        :param int amount: How many days after today do you want to get?
+        Defaults to 1 day.
+        :return: A string of the date described above.
+        :rtype: str
+
+        """
+        try:
+            amount = int(float(amount))
+        except ValueError:
+            raise ValueError("Invalid amount value")
+        return self.days_before_today(amount * -1)  # Double negatives
+
+    def increment_days(self, amount: int = 1, *args, **kwargs) -> None:
         """Increments the amount of days after today.
 
-        :param int amount: The amount of days to add.
+        :param int amount: The amount of days to add. Defaults to 1 day.
         :return: Nothing.
         :rtype: None
 
@@ -202,3 +193,52 @@ class Date(object):
                 self.day = self.day % self._calculate_mday(self.month, self.year)
         else:  # Normal
             self.day += amount
+
+    def yesterday(self, *args, **kwargs) -> str:
+        """
+        Returns yesterday's date.
+
+        :return: A string of the date described above.
+        :rtype: str
+
+        """
+        return self.days_before_today(1)  # We explicitly use 1 to improve clarity.
+
+    def today(self, *args, **kwargs) -> str:
+        """
+        Returns today's date.
+
+        :return: A string of the date described above.
+        :rtype: str
+
+        """
+        return self.__str__()
+
+    def tommorrow(self, *args, **kwargs) -> str:
+        """
+        Returns tommorrow's date.
+
+        :return: A string of the date described above.
+        :rtype: str
+
+        """
+        return self.days_after_today(1)  # We explicitly use 1 to improve clarity.
+
+    def increment_months(self, amount: int = 1) -> None:  # noqa D102
+        """Increments the amount of months after today.
+
+        :param int amount: The amount of months to add. Defaults to 1 month.
+        :return: Nothing.
+        :rtype: None
+
+        """
+        try:
+            amount = int(float(amount))
+        except ValueError:
+            raise ValueError("Invalid amount value")
+        tmonth = self.month + amount
+        if tmonth <= 12:
+            self.month = tmonth
+        else:
+            self.month = (tmonth % 12) + 1
+            self.year += tmonth // 12

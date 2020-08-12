@@ -35,6 +35,8 @@ You should be reassured that this program should work on _most_ computers. This 
 > - MacOS python3.7 for _Xcode versions_ **9.4** _to_ **11**, python3.8 for _Xcode version_ **12**
 > - Ubuntu versions tested for support: **_14.04_**, **_16.04_**, and **_18.04_**
 
+All of the above is certified via [Travis-CI](https://travis-ci.com/). Our build status (<sub>[![Build Status](https://travis-ci.com/ThatXliner/relaX.svg?branch=master)](https://travis-ci.com/ThatXliner/relaX)</sub>) means the status of the build over Ubuntu versions 14.04 to 18.04 .
+
 ## Getting started
 
 Hooked? Here's some tips to get you started.
