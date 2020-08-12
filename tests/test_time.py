@@ -32,7 +32,7 @@ class TestClass(object):
             + str(time.gmtime(time.time()).tm_year)
         )
 
-        assert Date().today == today()
+        assert Date().today() == today()
 
     def test_yesterday(self):
         assert yesterday() == str(

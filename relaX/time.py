@@ -214,9 +214,9 @@ class Date(object):
         """
         return self.__str__()
 
-    def tommorrow(self, *args, **kwargs) -> str:
+    def tomorrow(self, *args, **kwargs) -> str:
         """
-        Returns tommorrow's date.
+        Returns tomorrow's date.
 
         :return: A string of the date described above.
         :rtype: str
