@@ -83,7 +83,7 @@ _PY_VER = sys.version_info
 PV = [_PY_VER.major, _PY_VER.minor, _PY_VER.micro]
 AT_LEAST = [3, 5, 6]
 _RAISE_TEXT = UnsupportedPythonVersion(
-    "Your Python version ({}) is not supported. ".format(".".join(PV))
+    "Your Python version ({}) is not supported. ".format(".".join(map(str, PV)))
     + "(At least Python {} is required)".format(".".join(AT_LEAST))
 )
 if PV[0] < AT_LEAST[0]:
