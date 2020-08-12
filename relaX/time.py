@@ -93,7 +93,7 @@ class Date(object):
 
     def __str__(self) -> str:
         """__str__ method."""
-        return "/".join(self.date)
+        return "/".join(map(str, self.date))
 
     def __repr__(self) -> str:
         """__repr__ method."""
