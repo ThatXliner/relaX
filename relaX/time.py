@@ -56,7 +56,7 @@ class Date(object):
         day=time.gmtime(time.time()).tm_mday,
         year=time.gmtime(time.time()).tm_year,
         *args,
-        **kwargs,
+        **kwargs
     ) -> None:
         """This date object is a object wrapper of all of the functions defined in this file.
 
