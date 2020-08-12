@@ -150,8 +150,9 @@ class Date(object):
             amount = int(float(amount))
         except ValueError:
             raise ValueError("Invalid amount value")
-        d = Date(**self.json_date)
-        d.increment_days(amount * -1)
+        edited = self.json_date
+        edited["day"] -= amount
+        d = Date(**edited)
         return str(d)
 
     def days_after_today(self, amount: int = 1, *args, **kwargs) -> str:
@@ -179,20 +180,9 @@ class Date(object):
         """
         amount = abs(int(float(amount)))
         if self.day + amount > self.mday:  # Next month
-            if self.month + 1 > self.year:  # Next year
-                self.year += 1  # Increment year
-                self.day += amount  # Increment day
-                # Increment month
-                self.month += (  # Calculate months
-                    self.day // self._calculate_mday(self.month, self.year)
-                ) % 12  # Turn it into months
-                # Modulo incremented days
-                self.day = self.day % self._calculate_mday(self.month, self.year)
-            else:  # Not next year
-                self.month += 1  # Increment month
-                self.day += amount  # Increment day
-                # Modulo incremented days
-                self.day = self.day % self._calculate_mday(self.month, self.year)
+            # Increment day
+            self.day += amount % self.mday
+            self.increment_months(1)
         else:  # Normal
             self.day += amount
 
