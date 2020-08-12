@@ -24,7 +24,6 @@ relax.
 
 """
 # TODO: Make the main API robust and relax-grade
-# TODO: Choose between a function or an object (which will benefit more)
 ##########################################################################################
 # Module getting #########################################################################
 ##########################################################################################
@@ -50,16 +49,16 @@ except ModuleNotFoundError:
 pathlib2` or `pip install pathlib2`"
         )
 
-try:  # Try basic import
-    from .errors import UnsupportedPythonVersion
-except ImportError:
-    try:  # Maybe no dot?
-        from errors import UnsupportedPythonVersion
-    except ImportError:  # Editing the sys.path is a last resort
-        from sys import path
-
-        path.insert(0, str(_Path(__file__).parent))
-        from errors import UnsupportedPythonVersion
+# try:  # Try basic import
+#     from .errors import UnsupportedPythonVersion
+# except ImportError:
+#     try:  # Maybe no dot?
+#         from errors import UnsupportedPythonVersion
+#     except ImportError:  # Editing the sys.path is a last resort
+#         from sys import path
+#
+#         path.insert(0, str(_Path(__file__).parent))
+#         from errors import UnsupportedPythonVersion
 
 try:
     from yaml import load, safe_load, dump
