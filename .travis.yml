@@ -23,7 +23,7 @@ jobs:
       os: osx
       osx_image: xcode9.4
       language: shell
-    - name: "MacOS Xcode10 test"
+    - name: "MacOS Xcode10 (Python 3.7.5) test"
       os: osx
       osx_image: xcode10
       language: shell
