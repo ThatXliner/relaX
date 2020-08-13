@@ -64,7 +64,7 @@ class TestClass(object):
 
     def test_str_method(self):
         d = {"month": "8", "day": "12", "year": "2020"}
-        assert str(Date()) == "8/12/2020"
+        assert str(Date(**d)) == "8/12/2020"
 
     def test_catches_(self):
         try:

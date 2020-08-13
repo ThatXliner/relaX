@@ -86,7 +86,7 @@ class Date(object):
         except ValueError:
             raise ValueError("Invalid day")
         tday = self.day  # Optimization.
-        self.day = tday if tday <= mday else (tday % mday) + 1
+        self.day = tday if tday <= mday else ((tday % mday) + 1)
         self.date = [self.month, self.day, self.year]
         self.json_date = dict(zip(["month", "day", "year"], self.date))
         self.mday = mday
