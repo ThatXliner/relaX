@@ -52,24 +52,25 @@ class Date(object):
 
     def __init__(
         self,
-        month=time.gmtime(time.time()).tm_mon,
-        day=time.gmtime(time.time()).tm_mday,
-        year=time.gmtime(time.time()).tm_year,
+        month=time.localtime(time.time()).tm_mon,
+        day=time.localtime(time.time()).tm_mday,
+        year=time.localtime(time.time()).tm_year,
         *args,
         **kwargs
     ) -> None:
         """This date object is a object wrapper of all of the functions defined in this file.
 
         :param type month: The month to set the date to. Defaults to
-        time.gmtime(time.time()).tm_mon.
+        time.localtime(time.time()).tm_mon.
         :param type day: The day to set the date to. Defaults to
-        time.gmtime(time.time()).tm_mday.
+        time.localtime(time.time()).tm_mday.
         :param type year: The year to set the date to. Defaults to
-        time.gmtime(time.time()).tm_year.
+        time.localtime(time.time()).tm_year.
         :return: Nothing.
         :rtype: None
 
         """
+        # TODO: Also implement the seconds, hour, and minutes
         try:
             self.month = abs(int(float(month)))
         except ValueError:
@@ -86,7 +87,7 @@ class Date(object):
         except ValueError:
             raise ValueError("Invalid day")
         tday = self.day  # Optimization.
-        self.day = tday if tday <= mday else ((tday % mday) + 1)
+        self.day = tday if tday <= mday else (tday % mday) + 1
         self.date = [self.month, self.day, self.year]
         self.json_date = dict(zip(["month", "day", "year"], self.date))
         self.mday = mday
@@ -130,7 +131,7 @@ class Date(object):
         :rtype: None
 
         """
-        _ = time.gmtime(time.time())  # Optimization.
+        _ = time.localtime(time.time())  # Optimization.
         self.month = int(float(_.tm_mon))
         self.day = int(float(_.tm_mday))
         self.year = int(float(_.tm_year))
