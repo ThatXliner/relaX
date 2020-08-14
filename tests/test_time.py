@@ -25,33 +25,33 @@ from relaX.time import *
 class TestClass(object):
     def test_today(self):
         assert today() == str(
-            str(time.gmtime(time.time()).tm_mon)
+            str(time.localtime(time.time()).tm_mon)
             + "/"
-            + str(int(time.gmtime(time.time()).tm_mday))
+            + str(int(time.localtime(time.time()).tm_mday))
             + "/"
-            + str(time.gmtime(time.time()).tm_year)
+            + str(time.localtime(time.time()).tm_year)
         )
 
         assert Date().today() == today()
 
     def test_yesterday(self):
         assert yesterday() == str(
-            str(time.gmtime(time.time()).tm_mon)
+            str(time.localtime(time.time()).tm_mon)
             + "/"
-            + str(int(time.gmtime(time.time()).tm_mday) - 1)
+            + str(int(time.localtime(time.time()).tm_mday) - 1)
             + "/"
-            + str(time.gmtime(time.time()).tm_year)
+            + str(time.localtime(time.time()).tm_year)
         )
 
         assert Date().yesterday() == yesterday()
 
     def test_tomorrow(self):
         assert tomorrow() == str(
-            str(time.gmtime(time.time()).tm_mon)
+            str(time.localtime(time.time()).tm_mon)
             + "/"
-            + str(int(time.gmtime(time.time()).tm_mday) + 1)
+            + str(int(time.localtime(time.time()).tm_mday) + 1)
             + "/"
-            + str(time.gmtime(time.time()).tm_year)
+            + str(time.localtime(time.time()).tm_year)
         )
 
         assert Date().tomorrow() == tomorrow()

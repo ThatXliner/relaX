@@ -1,6 +1,6 @@
 <p align="center"><a href="https://travis-ci.com/ThatXliner/relaX"><img src="https://travis-ci.com/ThatXliner/relaX.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
-<img src="https://img.shields.io/github/languages/code-size/ThatXliner/relaX" alt="GitHub code size in bytes"></p>
+<img src="https://img.shields.io/github/languages/code-size/ThatXliner/relaX" alt="GitHub code size in bytes"><img alt="GitHub" src="https://img.shields.io/github/license/ThatXliner/relaX"></p>
 
 ---
 
@@ -35,7 +35,7 @@ You should be reassured that this program should work on _most_ computers. This 
 > - MacOS python3.7 for _Xcode versions_ **9.4** _to_ **11**, python3.8 for _Xcode version_ **12**
 > - Ubuntu versions tested for support: **_14.04_**, **_16.04_**, and **_18.04_**
 
-All of the above is certified via [Travis-CI](https://travis-ci.com/). Our build status (<sub>[![Build Status](https://travis-ci.com/ThatXliner/relaX.svg?branch=master)](https://travis-ci.com/ThatXliner/relaX)</sub>) means the status of the build over Ubuntu versions 14.04 to 18.04 .
+All of the above is certified via [Travis-CI](https://travis-ci.com/). Our build status (<sub>[![Build Status](https://travis-ci.com/ThatXliner/relaX.svg?branch=master)](https://travis-ci.com/ThatXliner/relaX)</sub>) is the result of running `pytest` over the `tests` directory in our [repo](https://github.com/ThatXliner/relaX).
 
 ## Getting started
 
@@ -55,7 +55,7 @@ Here's the complete installation script:
 
 ```bash
 /usr/bin/git clone https://github.com/ThatXliner/relaX.git
-cd relaX
+/bin/bash cd relaX
 /usr/bin/pip3 install .
 /usr/bin/python3 -m pip install .
 ```
@@ -63,7 +63,13 @@ cd relaX
 or, a one-liner installation script:
 
 ```bash
-/usr/bin/git clone https://github.com/ThatXliner/relaX.git && cd relaX && /usr/bin/pip3 install . ; /usr/bin/python3 -m pip install .
+/usr/bin/git clone https://github.com/ThatXliner/relaX.git && /bin/bash cd relaX && /usr/bin/pip3 install . ; /usr/bin/python3 -m pip install .
+```
+
+NOTE: If you don't have `pip` or `/usr/bin/pip` or `/usr/bin/pip3` and have tried `/usr/bin/python3 -m pip`, you will need to install pip manually. Execute the following command in your terminal (shell):
+
+```bash
+{/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} || {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} ||  {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python} ||  {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python}
 ```
 
 ## via `pip install relaX`
@@ -75,8 +81,6 @@ Currently, this package is not available on the Python Package Index (PyPi).
 #### relaX.fig
 
 #### relaX.time
-
-DON'T USE YET! IT'S WIP!
 
 ## Contributing
 
