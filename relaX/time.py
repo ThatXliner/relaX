@@ -96,9 +96,9 @@ class Date(object):
         """__str__ method."""
         return "/".join(map(str, self.date))
 
-    def __repr__(self) -> str:
-        """__repr__ method."""
-        return self.__str__()
+    # def __repr__(self) -> str:
+    #     """__repr__ method."""
+    #     return self.__str__()
 
     def __dict__(self) -> dict:
         """__dict__ method."""
@@ -113,6 +113,33 @@ class Date(object):
 
         """
         return self.json_date.get(key.lower())
+
+    def __add__(self, other):
+        """__add__ magic method.
+
+        :param type other: Description of parameter `other`.
+        :return: Description of returned object.
+        :rtype: type
+
+        """
+        if isinstance(other, Date):
+            return Date(
+                month=other.month + self.month,
+                day=other.day + self.day,
+                year=other.year + self.year,
+            )
+        if isinstance(other, str):
+            try:
+                other = int(float(other))
+            except ValueError:
+                raise TypeError("Expected a Date object, got %s" % type(other))
+        if isinstance(other, int) or isinstance(other, float):
+            return Date(**self.json_date).increment_days(int(other))
+        else:
+            raise TypeError("Expected a Date object, got %s" % type(other))
+
+    def __ge__(self, other):
+        raise NotImplementedError
 
     def _calculate_mday(self, tmonth, year, *args, **kwargs):
         if tmonth % 2 == 0:  # Even month

@@ -48,18 +48,6 @@ except ModuleNotFoundError:
             "You need to install the pathlib2 package. Try `python3 -m pip install "
             "pathlib2` or `pip install pathlib2`"
         )
-# import sys
-
-# try:  # Try basic import
-#     from .errors import UnsupportedPythonVersion
-# except ImportError:
-#     try:  # Maybe no dot?
-#         from errors import UnsupportedPythonVersion
-#     except ImportError:  # Editing the sys.path is a last resort
-#         from sys import path
-#
-#         path.insert(0, str(_Path(__file__).parent))
-#         from errors import UnsupportedPythonVersion
 
 try:
     from yaml import load, safe_load, dump
@@ -74,10 +62,6 @@ except ModuleNotFoundError:
         "You have to install the pyyaml package for relaX.fig . Try `python3 -m pip \
 install pyyaml` or `pip install pyyaml`"
     )
-
-##########################################################################################
-# Python version/implementation check ####################################################
-##########################################################################################
 
 ##########################################################################################
 # Main API ###############################################################################
@@ -103,13 +87,9 @@ def get_config_file(
     ###############################
     # Type verification ###########
     ###############################
-    config_file_name = (
-        str(config_file_name)
-        if not isinstance(config_file_name, str)
-        else config_file_name
-    )
-    defaults = dict(defaults) if not isinstance(defaults, dict) else defaults
-    safe = bool(safe) if not isinstance(safe, bool) else safe
+    config_file_name = str(config_file_name)
+    defaults = dict(defaults)
+    safe = bool(safe)
     ###############################
     XFIG_PATH = _Path("~/Xfig_index.yml")
     if XFIG_PATH.exists() and XFIG_PATH.is_file():
