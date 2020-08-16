@@ -48,6 +48,7 @@ def tomorrow() -> str:
 
 
 class Date(object):
+    # TODO: Write better docs
     """A relaX-grade date object."""
 
     def __init__(
@@ -96,10 +97,6 @@ class Date(object):
         """__str__ method."""
         return "/".join(map(str, self.date))
 
-    # def __repr__(self) -> str:
-    #     """__repr__ method."""
-    #     return self.__str__()
-
     def __dict__(self) -> dict:
         """__dict__ method."""
         return self.json_date
@@ -133,13 +130,54 @@ class Date(object):
                 other = int(float(other))
             except ValueError:
                 raise TypeError("Expected a Date object, got %s" % type(other))
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return Date(**self.json_date).increment_days(int(other))
         else:
             raise TypeError("Expected a Date object, got %s" % type(other))
 
-    def __ge__(self, other):
-        raise NotImplementedError
+    def __gt__(self, other):
+        """Short summary.
+
+        :param type other: Description of parameter `other`.
+        :return: Description of returned object.
+        :rtype: type
+
+        """
+        ojd = other.json_date
+        jd = self.json_date
+        if isinstance(other, Date):
+            return jd[0] > ojd[0] and jd[1] > ojd[1] and jd[2] > ojd[2]
+        else:
+            raise TypeError("Expected a Date object, got %s" % type(other))
+
+    def __le__(self, other):
+        """Short summary.
+
+        :param type other: Description of parameter `other`.
+        :return: Description of returned object.
+        :rtype: type
+
+        """
+        return not other > self
+
+    def __eq__(self, other):
+        switch_case = {
+            "<class 'time.Date'>": other.json_date,
+            "<class 'list'>": other[:2],
+            "<class 'tuple'>": other[:2],
+        }
+        try:
+            return self.date == switch_case[repr(type(other))]
+        except IndexError:
+            raise TypeError(
+                "Expected a Date object or an iterable with at begins with 3 numbers, got %s"
+                % repr(type(other))
+            )
+        except KeyError:
+            raise TypeError(
+                "Expected a Date object or an iterable with at begins with 3 numbers, got %s"
+                % repr(type(other))
+            )
 
     def _calculate_mday(self, tmonth, year, *args, **kwargs):
         if tmonth % 2 == 0:  # Even month

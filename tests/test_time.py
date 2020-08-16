@@ -75,3 +75,19 @@ class TestClass(object):
             Date().increment_days("12.hi")
         except ValueError:
             pass
+
+    def test_eq_(self):
+        assert Date() == Date()
+        assert Date(1, 1, 1) == Date(1, 1, 1)
+
+
+@pytest.mark.parametrize(
+    "date_obj, expected",
+    [
+        (Date(month=1, day=1, year=2021) + 1, Date(month=1, day=2, year=2021)),
+        (Date(0, 0, 100) + Date(1, 45, 100), Date(2, 14, 200)),
+        (Date(8, 15, 2020) > Date(0, 0, 100), True),
+    ],
+)
+def test_stuff(date_obj, expected):
+    assert date_obj == expected
