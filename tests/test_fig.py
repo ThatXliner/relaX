@@ -26,7 +26,11 @@ class TestClass(object):
     def test_no(self):
         stuff = get_config_file("Unexisting config file name").get("nothing")
         assert stuff == None
+        stuff = get_config_file("Unexisting config file name").get("nothing")
+        assert stuff == None
 
     def test_spam(self):
         stuff = get_config_file("test", defaults={"have_spam": True})["have_spam"]
+        assert stuff == True
+        stuff = get_config_file("test")["have_spam"]
         assert stuff == True
