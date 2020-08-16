@@ -6,7 +6,6 @@ Author: Bryan Hu .
 
 Made with love by Bryan Hu .
 
-
 Version: v1.0
 
 Desc: relaXfig is a simple configuration system designed to be integrated into pretty
