@@ -35,7 +35,7 @@ You should be reassured that this program should work on _most_ computers. This 
 > - MacOS python3.7 for _Xcode versions_ **9.4** _to_ **11**, python3.8 for _Xcode version_ **12**
 > - Ubuntu versions tested for support: **_14.04_**, **_16.04_**, and **_18.04_**
 
-All of the above is certified via [Travis-CI](https://travis-ci.com/). Our build status (<sub>[![Build Status](https://travis-ci.com/ThatXliner/relaX.svg?branch=master)](https://travis-ci.com/ThatXliner/relaX)</sub>) is the result of running `pytest` over the `tests` directory in our [repo](https://github.com/ThatXliner/relaX).
+All of the above is certified via [Travis-CI](https://travis-ci.com/). Our build status (<sub>[![Build Status](https://travis-ci.com/ThatXliner/relaX.svg?branch=master)](https://travis-ci.com/ThatXliner/relaX)</sub>) is the result of running `pytest` over the `tests` directory in our [repo](https://github.com/ThatXliner/relaX) over a variety of python versions and OSes.
 
 ## Getting started
 
@@ -43,9 +43,9 @@ Hooked? Here's some tips to get you started.
 
 ### Installation
 
-Currently, this package is not available on the Python Package Index (PyPi).
+You can install this package from source via git.
 
-But there are other installation options available.
+But the recommended way to install this is to use `pip install relaX-library` (or `python3 -m pip install relaX-library`).
 
 #### via `git clone`
 
@@ -72,9 +72,9 @@ NOTE: If you don't have `pip` or `/usr/bin/pip` or `/usr/bin/pip3` and have trie
 {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} || {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} ||  {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python} ||  {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python}
 ```
 
-## via `pip install relaX`
+### via `pip install relaX` (recommended)
 
-Currently, this package is not available on the Python Package Index (PyPi).
+You can easily install this package via `pip install relaX-library`.
 
 ### Usage
 
@@ -117,3 +117,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## FAQ
+
+### Getting pip
+
+### Available platforms
