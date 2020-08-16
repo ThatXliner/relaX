@@ -4,7 +4,7 @@
 
 ---
 
-**[The relaX library](#the-relax-library)** | **[What is this](#what-is-this)** | **[Getting started](#getting-started)** | **[Installation](#installation)** | **[Usage](#usage)** | **[Contributing](#contributing)** | **[License (MIT)](#license-mit)** |
+[The relaX library](#the-relax-library) | [What is this](#what-is-this) | [Getting started](#getting-started) | [Installation](#installation) | [Usage](#usage) | [Contributing](#contributing) | [License (MIT)](#license-mit) | [FAQ](#faq)
 
 ---
 
