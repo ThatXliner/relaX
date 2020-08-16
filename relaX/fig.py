@@ -138,11 +138,12 @@ def get_config_file(
                 + dump(pd, Dumper=Dumper, default_flow_style=False,)
             )
 
+    mtx_ccf = map_to_xindex(create_config_file())
     if XFIG_PATH.exists() and XFIG_PATH.is_file():
         try:
             cfp = loads(XFIG_PATH).get(config_file_name)
         except AttributeError:  # There is nothing in the index file
-            map_to_xindex(create_config_file())
+            mtx_ccf()
             return defaults
 
         else:  # There is something in the index file
@@ -151,13 +152,13 @@ def get_config_file(
                 if cfp.exists() and cfp.is_file():  # Config file
                     return loads(cfp)
                 else:  # It doesn't points to something
-                    map_to_xindex(create_config_file())
+                    mtx_ccf()
                     return defaults
             else:
-                map_to_xindex(create_config_file())
+                mtx_ccf()
                 return defaults
 
     else:  # The config index file doesn't exist
         XFIG_PATH.touch()
-        map_to_xindex(create_config_file())
+        mtx_ccf()
         return defaults
