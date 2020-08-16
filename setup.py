@@ -31,7 +31,7 @@ CLASSIFIERS = [
     "Topic :: Utilities",
 ]
 setup(
-    name="relaX",
+    name="relaX-library",
     version=__version__,
     author="Bryan Hu",
     author_email="bryan.hu.cn@gmail.com",
