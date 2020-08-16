@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Author: Bryan Hu .
-
 @Bryan Hu .
 
 Made with love by Bryan Hu .
@@ -92,9 +91,40 @@ def get_config_file(
     safe = bool(safe)
     ###############################
     XFIG_PATH = _Path("~/Xfig_index.yml")
+
+    def loads(file: p, *args, **kwargs):
+        if safe:  # If safe mode is enabled
+            return safe_load(file.read_text(), Loader=Loader)
+        else:  # Or it isn't
+            return load(file.read_text(), Loader=Loader)
+
+    def create_config_file():
+        new_config = _Path("~/{}.yml".format(config_file_name))
+        if not new_config.exists():
+            new_config.touch()
+            new_config.write_text(
+                dump(defaults, Dumper=Dumper, default_flow_style=False)
+            )
+        else:  # The 'new' config file exists
+            config_file_stuff = loads(new_config)
+            if config_file_stuff is not None and config_file_stuff is dict:
+                new_config.write_text(
+                    dump(
+                        {**config_file_stuff, **defaults},
+                        Dumper=Dumper,
+                        default_flow_style=False,
+                    )
+                )
+            else:
+                new_config.write_text(
+                    dump(defaults, Dumper=Dumper, default_flow_style=False)
+                )
+
+        return str(new_config)
+
     if XFIG_PATH.exists() and XFIG_PATH.is_file():
         try:
-            cfp = load(XFIG_PATH.read_text(), Loader=Loader).get(config_file_name)
+            cfp = loads(XFIG_PATH).get(config_file_name)
         except AttributeError:  # There is nothing in the config file
             # Create the config file from defaults given
             new_config = _Path("~/{}.yml".format(config_file_name))
@@ -110,33 +140,9 @@ def get_config_file(
             if cfp is not None:
                 cfp = _Path(str(cfp))
                 if cfp.exists() and cfp.is_file():
-                    if safe:  # If safe mode is enabled
-                        return safe_load(cfp.read_text(), Loader=Loader)
-                    else:  # Or it isn't
-                        return load(cfp.read_text(), Loader=Loader)
+                    return loads(cfp)
                 else:  # It doesn't exist
-                    # Create the config file from defaults given
-                    new_config = _Path("~/{}.yml".format(config_file_name))
-                    if not new_config.exists():
-                        new_config.touch()
-                        new_config.write_text(
-                            dump(
-                                str(defaults), Dumper=Dumper, default_flow_style=False,
-                            )
-                        )
-                    else:  # The 'new' config file exists
-                        new_config.write_text(
-                            dump(
-                                str(
-                                    {
-                                        **defaults,
-                                        **load(new_config.read_text(), Loader=Loader),
-                                    }
-                                ),
-                                Dumper=Dumper,
-                                default_flow_style=False,
-                            )
-                        )
+                    create_config_file()
                     return defaults
             else:
                 return defaults
