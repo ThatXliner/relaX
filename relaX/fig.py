@@ -121,14 +121,22 @@ def get_config_file(
         return str(new_config)
 
     def map_to_xindex(config_file_path):
-        XFIG_PATH.write_text(
-            "---\n# This file was generated automatically by relaX.fig .\n"
-            + dump(
-                {config_file_name: config_file_path},
-                Dumper=Dumper,
-                default_flow_style=False,
+        pd = {config_file_name: config_file_path}
+        config_file_stuff = loads(XFIG_PATH)
+        if config_file_stuff is not None and config_file_stuff is dict:
+            XFIG_PATH.write_text(
+                "---\n# This file was generated automatically by relaX.fig .\n"
+                + dump(
+                    {**config_file_stuff, **pd},  # Merging the two
+                    Dumper=Dumper,
+                    default_flow_style=False,
+                )
             )
-        )
+        else:  # Nah
+            XFIG_PATH.write_text(
+                "---\n# This file was generated automatically by relaX.fig .\n"
+                + dump(pd, Dumper=Dumper, default_flow_style=False,)
+            )
 
     if XFIG_PATH.exists() and XFIG_PATH.is_file():
         try:
@@ -140,17 +148,16 @@ def get_config_file(
         else:  # There is something in the index file
             if cfp is not None:  # Check if the key points to something
                 cfp = _Path(str(cfp))
-                if cfp.exists() and cfp.is_file():
+                if cfp.exists() and cfp.is_file():  # Config file
                     return loads(cfp)
-                else:  # It doesn't exist
+                else:  # It doesn't points to something
                     map_to_xindex(create_config_file())
                     return defaults
             else:
+                map_to_xindex(create_config_file())
                 return defaults
 
     else:  # The config index file doesn't exist
         XFIG_PATH.touch()
-        XFIG_PATH.write_text(
-            "---\n# This file was generated automatically by relaX.fig .\n"
-        )
+        map_to_xindex(create_config_file())
         return defaults
