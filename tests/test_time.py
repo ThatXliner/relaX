@@ -16,6 +16,7 @@ Desc: THIS IS A TEST.
 """
 from sys import path
 import time
+import pytest
 
 path.insert(0, ".")
 path.insert(0, "..")
@@ -78,16 +79,15 @@ class TestClass(object):
 
     def test_eq_(self):
         assert Date() == Date()
+
+    def test_d(self):
         assert Date(1, 1, 1) == Date(1, 1, 1)
 
+    def test_eq_m(self):
+        assert (Date(month=1, day=1, year=2021) + 1) == Date(month=1, day=2, year=2021)
 
-@pytest.mark.parametrize(
-    "date_obj, expected",
-    [
-        (Date(month=1, day=1, year=2021) + 1, Date(month=1, day=2, year=2021)),
-        (Date(0, 0, 100) + Date(1, 45, 100), Date(2, 14, 200)),
-        (Date(8, 15, 2020) > Date(0, 0, 100), True),
-    ],
-)
-def test_stuff(date_obj, expected):
-    assert date_obj == expected
+    def test_9(self):
+        assert (Date(0, 0, 100) + Date(1, 45, 100)) == Date(1, 45, 200)
+
+    def test_10(self):
+        assert (Date(8, 15, 2020) > Date(0, 0, 100)) == True

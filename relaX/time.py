@@ -97,6 +97,9 @@ class Date(object):
         """__str__ method."""
         return "/".join(map(str, self.date))
 
+    def __repr__(self) -> str:
+        return repr(self.__str__())
+
     def __dict__(self) -> dict:
         """__dict__ method."""
         return self.json_date
@@ -120,20 +123,15 @@ class Date(object):
 
         """
         if isinstance(other, Date):
-            return Date(
-                month=other.month + self.month,
-                day=other.day + self.day,
-                year=other.year + self.year,
-            )
-        if isinstance(other, str):
-            try:
-                other = int(float(other))
-            except ValueError:
-                raise TypeError("Expected a Date object, got %s" % type(other))
-        if isinstance(other, (int, float)):
-            return Date(**self.json_date).increment_days(int(other))
+            self.month += other.month
+            self.day += other.day
+            self.year += other.year
+            self.update()
+            return Date(month=self.month, day=self.day, year=self.year,)
+
         else:
-            raise TypeError("Expected a Date object, got %s" % type(other))
+            self.increment_days(other)
+            return self
 
     def __gt__(self, other):
         """Short summary.
@@ -143,8 +141,8 @@ class Date(object):
         :rtype: type
 
         """
-        ojd = other.json_date
-        jd = self.json_date
+        ojd = other.date
+        jd = self.date
         if isinstance(other, Date):
             return jd[0] > ojd[0] and jd[1] > ojd[1] and jd[2] > ojd[2]
         else:
@@ -161,19 +159,11 @@ class Date(object):
         return not other > self
 
     def __eq__(self, other):
-        switch_case = {
-            "<class 'time.Date'>": other.json_date,
-            "<class 'list'>": other[:2],
-            "<class 'tuple'>": other[:2],
-        }
-        try:
-            return self.date == switch_case[repr(type(other))]
-        except IndexError:
-            raise TypeError(
-                "Expected a Date object or an iterable with at begins with 3 numbers, got %s"
-                % repr(type(other))
-            )
-        except KeyError:
+        if isinstance(other, Date):
+            return self.date == other.date
+        elif isinstance(other, (list, tuple)):
+            return self.date == map(int, map(float, other[:2]))
+        else:
             raise TypeError(
                 "Expected a Date object or an iterable with at begins with 3 numbers, got %s"
                 % repr(type(other))
@@ -203,6 +193,7 @@ class Date(object):
 
         self.date = [self.month, self.day, self.year]
         self.json_date = dict(zip(["month", "day", "year"], self.date))
+        return self
 
     def days_before_today(self, amount: int = 1, *args, **kwargs) -> str:
         """Returns a string representing some number of days before today.
@@ -236,7 +227,7 @@ class Date(object):
             raise ValueError("Invalid amount value")
         return self.days_before_today(amount * -1)  # Double negatives
 
-    def increment_days(self, amount: int = 1, *args, **kwargs) -> None:
+    def increment_days(self, amount: int = 1, *args, **kwargs):
         """Increments the amount of days after today.
 
         :param int amount: The amount of days to add. Defaults to 1 day.
@@ -244,13 +235,15 @@ class Date(object):
         :rtype: None
 
         """
-        amount = abs(int(float(amount)))
-        if self.day + amount > self.mday:  # Next month
+        amount = int(float(amount))
+        if (self.day + amount) > self.mday:  # Next month
             # Increment day
+            self.increment_months(self.day // self.mday)
             self.day += amount % self.mday
-            self.increment_months(1)
         else:  # Normal
             self.day += amount
+        self.update()
+        return self
 
     def yesterday(self, *args, **kwargs) -> str:
         """
@@ -282,7 +275,7 @@ class Date(object):
         """
         return self.days_after_today(1)  # We explicitly use 1 to improve clarity.
 
-    def increment_months(self, amount: int = 1) -> None:  # noqa D102
+    def increment_months(self, amount: int = 1):
         """Increments the amount of months after today.
 
         :param int amount: The amount of months to add. Defaults to 1 month.
@@ -300,3 +293,9 @@ class Date(object):
         else:
             self.month = (tmonth % 12) + 1
             self.year += tmonth // 12
+        self.update()
+        return self
+
+    def update(self):
+        self.date = [self.month, self.day, self.year]
+        self.json_date = dict(zip(["month", "day", "year"], self.date))

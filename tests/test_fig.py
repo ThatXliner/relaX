@@ -19,6 +19,7 @@ from sys import path
 path.insert(0, ".")
 path.insert(0, "..")
 from relaX.fig import get_config_file
+import pytest
 
 
 class TestClass(object):
