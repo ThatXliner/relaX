@@ -100,11 +100,12 @@ def get_config_file(
 
     def create_config_file():
         new_config = _Path("~/{}.yml".format(config_file_name))
+        _ = new_config.write_text(
+            dump(defaults, Dumper=Dumper, default_flow_style=False)
+        )
         if not new_config.exists():
             new_config.touch()
-            new_config.write_text(
-                dump(defaults, Dumper=Dumper, default_flow_style=False)
-            )
+            _()
         else:  # The 'new' config file exists
             config_file_stuff = loads(new_config)
             if config_file_stuff is not None and config_file_stuff is dict:
@@ -116,33 +117,33 @@ def get_config_file(
                     )
                 )
             else:
-                new_config.write_text(
-                    dump(defaults, Dumper=Dumper, default_flow_style=False)
-                )
-
+                _()
         return str(new_config)
+
+    def map_to_xindex(config_file_path):
+        XFIG_PATH.write_text(
+            "---\n# This file was generated automatically by relaX.fig .\n"
+            + dump(
+                {config_file_name: config_file_path},
+                Dumper=Dumper,
+                default_flow_style=False,
+            )
+        )
 
     if XFIG_PATH.exists() and XFIG_PATH.is_file():
         try:
             cfp = loads(XFIG_PATH).get(config_file_name)
-        except AttributeError:  # There is nothing in the config file
-            # Create the config file from defaults given
-            new_config = _Path("~/{}.yml".format(config_file_name))
-            if not new_config.exists():
-                new_config.touch()
-            new_config.write_text(
-                dump(str(defaults), Dumper=Dumper, default_flow_style=False)
-            )
+        except AttributeError:  # There is nothing in the index file
+            map_to_xindex(create_config_file())
             return defaults
 
-        # Check if the key points to something
-        else:
-            if cfp is not None:
+        else:  # There is something in the index file
+            if cfp is not None:  # Check if the key points to something
                 cfp = _Path(str(cfp))
                 if cfp.exists() and cfp.is_file():
                     return loads(cfp)
                 else:  # It doesn't exist
-                    create_config_file()
+                    map_to_xindex(create_config_file())
                     return defaults
             else:
                 return defaults
