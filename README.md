@@ -72,9 +72,9 @@ NOTE: If you don't have `pip` or `/usr/bin/pip` or `/usr/bin/pip3` and have trie
 {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} || {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} ||  {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python} ||  {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python}
 ```
 
-### via `pip install relaX` (recommended)
+### via `pip install` (recommended)
 
-You can easily install this package via `pip install relaX-library`.
+You can easily install this package via `pip install relaX-library` (or `python3 -m pip install relaX-library`).
 
 ### Usage
 
@@ -86,13 +86,18 @@ You can easily install this package via `pip install relaX-library`.
 
 ### Code style: black
 
-We don't need to chatter about the code style: use black and try to **keep it 90 or under characters per line**. Keep that in mind (maybe we should add a setup.cfg file).
+We don't need to chatter about the code style: use black and try to **keep it 90 or under characters per line**. Keep that in mind. Comment writing guides, naming guidelines, and docstring conventions are WIP.
+
+
+But try to stick with `snake_case`.
 
 ## License (MIT)
 
 MIT license.
 
-I, Bryan, feel that everyone should be able to use technology and code, not needing to worry about anything else. **We ❤️ open-source**
+I, Bryan, feel that everyone should be able to use technology and code, not needing to worry about anything else.
+
+**We ❤️ open-source**
 
 ```text
 MIT License

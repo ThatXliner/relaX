@@ -77,17 +77,17 @@ class TestClass(object):
         except ValueError:
             pass
 
-    def test_eq_(self):
+    def test_date_eq_date(self):
         assert Date() == Date()
 
-    def test_d(self):
+    def test_ded(self):
         assert Date(1, 1, 1) == Date(1, 1, 1)
 
-    def test_eq_m(self):
+    def test_eq_add_i(self):
         assert (Date(month=1, day=1, year=2021) + 1) == Date(month=1, day=2, year=2021)
 
-    def test_9(self):
+    def test_add_d(self):
         assert (Date(0, 0, 100) + Date(1, 45, 100)) == Date(1, 45, 200)
 
-    def test_10(self):
+    def test_more(self):
         assert (Date(8, 15, 2020) > Date(0, 0, 100)) == True
