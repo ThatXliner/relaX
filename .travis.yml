@@ -73,7 +73,7 @@ jobs:
     - python: "3.9-dev"
     - dist: focal
 script:
-  - pytest tests/ -vvv --durations=5 --show-capture
+  - pytest tests/ -vvv --durations=5
 notifications:
   email:
     recipients:
