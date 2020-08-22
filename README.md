@@ -1,10 +1,16 @@
 <p align="center"><a href="https://travis-ci.com/ThatXliner/relaX"><img src="https://travis-ci.com/ThatXliner/relaX.svg?branch=master" alt="Build Status"></a>
-<a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
-<img src="https://img.shields.io/github/languages/code-size/ThatXliner/relaX" alt="GitHub code size in bytes"><img alt="GitHub" src="https://img.shields.io/github/license/ThatXliner/relaX"></p>
+  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+  <img src="https://img.shields.io/github/languages/code-size/ThatXliner/relaX" alt="GitHub code size in bytes">
+  <img alt="GitHub" src="https://img.shields.io/github/license/ThatXliner/relaX">
+  <img alt="PyPI - Implementation" src="https://img.shields.io/pypi/implementation/relax-library">
+  <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/relax-library">
+  <img alt="PyPI - Status" src="https://img.shields.io/pypi/status/relax-library">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues/ThatXliner/relax">
+</p>
 
 ---
 
-**[The relaX library](#the-relax-library)** | **[What is this](#what-is-this)** | **[Getting started](#getting-started)** | **[Installation](#installation)** | **[Usage](#usage)** | **[Contributing](#contributing)** | **[License (MIT)](#license-mit)** |
+[The relaX library](#the-relax-library) | [What is this](#what-is-this) | [Getting started](#getting-started) | [Installation](#installation) | [Usage](#usage) | [Contributing](#contributing) | [License (MIT)](#license-mit) | [FAQ](#faq)
 
 ---
 
@@ -72,9 +78,9 @@ NOTE: If you don't have `pip` or `/usr/bin/pip` or `/usr/bin/pip3` and have trie
 {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} || {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python3} ||  {/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | /usr/bin/python} ||  {wget https://bootstrap.pypa.io/get-pip.py | /usr/bin/python}
 ```
 
-### via `pip install relaX` (recommended)
+### via `pip install` (recommended)
 
-You can easily install this package via `pip install relaX-library`.
+You can easily install this package via `pip install relaX-library` (or `python3 -m pip install relaX-library`).
 
 ### Usage
 
@@ -86,13 +92,18 @@ You can easily install this package via `pip install relaX-library`.
 
 ### Code style: black
 
-We don't need to chatter about the code style: use black and try to **keep it 90 or under characters per line**. Keep that in mind (maybe we should add a setup.cfg file).
+We don't need to chatter about the code style: use black and try to **keep it 90 or under characters per line**. Keep that in mind. Comment writing guides, naming guidelines, and docstring conventions are WIP.
+
+
+But try to stick with `snake_case`.
 
 ## License (MIT)
 
 MIT license.
 
-I, Bryan, feel that everyone should be able to use technology and code, not needing to worry about anything else. **We ❤️ open-source**
+I, Bryan, feel that everyone should be able to use technology and code, not needing to worry about anything else.
+
+**We ❤️ open-source**
 
 ```text
 MIT License
