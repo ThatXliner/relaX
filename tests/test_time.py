@@ -68,14 +68,10 @@ class TestClass(object):
         assert str(Date(**d)) == "8/12/2020"
 
     def test_catches_(self):
-        try:
+        with pytest.raises(ValueError):
             Date(month="hi")
-        except ValueError:
-            pass
-        try:
+        with pytest.raises(ValueError):
             Date().increment_days("12.hi")
-        except ValueError:
-            pass
 
     def test_eq_(self):
         assert Date() == Date()
