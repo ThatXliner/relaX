@@ -158,6 +158,12 @@ class Date(object):
         """
         return not other > self
 
+    def __lt__(self, other):
+        return other <= self and not other == self
+
+    def __ne__(self, other):
+        return not other == self
+
     def __eq__(self, other):
         if isinstance(other, Date):
             return self.date == other.date
@@ -165,14 +171,20 @@ class Date(object):
             return self.date == map(int, map(float, other[:2]))
         else:
             raise TypeError(
-                "Expected a Date object or an iterable with at begins with 3 numbers, got %s"
-                % repr(type(other))
+                "Expected a Date object or an iterable with at begins with 3 numbers,"
+                " got %s" % repr(type(other))
             )
+
+    @property
+    def is_leap_year(self, year=None):
+        if year is None:
+            year = self.year
+        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
 
     def _calculate_mday(self, tmonth, year, *args, **kwargs):
         if tmonth % 2 == 0:  # Even month
             if tmonth == 2:
-                mday = 29 if year % 4 == 0 else 28
+                mday = 29 if self.is_leap_year() else 28
             else:
                 mday = 30
         else:
@@ -245,6 +257,7 @@ class Date(object):
         self.update()
         return self
 
+    @property
     def yesterday(self, *args, **kwargs) -> str:
         """
         Returns yesterday's date.
@@ -255,6 +268,7 @@ class Date(object):
         """
         return self.days_before_today(1)  # We explicitly use 1 to improve clarity.
 
+    @property
     def today(self, *args, **kwargs) -> str:
         """
         Returns today's date.
@@ -265,6 +279,7 @@ class Date(object):
         """
         return self.__str__()
 
+    @property
     def tomorrow(self, *args, **kwargs) -> str:
         """
         Returns tomorrow's date.
