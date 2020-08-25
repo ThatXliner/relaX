@@ -222,7 +222,8 @@ class Date(object):
         edited = self.json_date
         edited["day"] -= amount
         d = Date(**edited)
-        return str(d)
+        del edited
+        return d
 
     def days_after_today(self, amount: int = 1, *args, **kwargs) -> str:
         """Returns a string representing some number of days after today.
