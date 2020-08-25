@@ -223,7 +223,7 @@ class Date(object):
         edited["day"] -= amount
         d = Date(**edited)
         del edited
-        return d
+        return str(d)
 
     def days_after_today(self, amount: int = 1, *args, **kwargs) -> str:
         """Returns a string representing some number of days after today.
@@ -258,7 +258,7 @@ class Date(object):
         self.update()
         return self
 
-    @property
+
     def yesterday(self, *args, **kwargs) -> str:
         """
         Returns yesterday's date.
@@ -269,7 +269,7 @@ class Date(object):
         """
         return self.days_before_today(1)  # We explicitly use 1 to improve clarity.
 
-    @property
+
     def today(self, *args, **kwargs) -> str:
         """
         Returns today's date.
@@ -280,7 +280,7 @@ class Date(object):
         """
         return self.__str__()
 
-    @property
+
     def tomorrow(self, *args, **kwargs) -> str:
         """
         Returns tomorrow's date.
