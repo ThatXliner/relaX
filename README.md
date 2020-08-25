@@ -18,6 +18,9 @@
 
 > _"A collection of usefulness..."_
 
+
+NOTICE: relaX is still in its Alpha stage. Features and APIs may change drastically. You are welcome to contribute!
+
 ## What is this
 
 The relaX library is a collection of useful functions, objects, and utilities for any python programmer. It is meant to **provide intuitive and easy-to-use functionality for all purposes**. Need a configuration file system that'll set itself up?
@@ -36,10 +39,10 @@ RelaX was made so you could relax, instead of scratching your head.
 
 You should be reassured that this program should work on _most_ computers. This is compatible with:
 
-> - CPython versions **3.5 to 3.10**
+> - CPython versions **3.5 to 3.10** (In the future, this will change from 3.6)
 > - PyPy3 compatible
 > - MacOS python3.7 for _Xcode versions_ **9.4** _to_ **11**, python3.8 for _Xcode version_ **12**
-> - Ubuntu versions tested for support: **_14.04_**, **_16.04_**, and **_18.04_**
+> - Ubuntu versions tested for support: **_14.04_**, **_16.04_**, **_18.04_**, **_20.04_**
 
 All of the above is certified via [Travis-CI](https://travis-ci.com/). Our build status (<sub>[![Build Status](https://travis-ci.com/ThatXliner/relaX.svg?branch=master)](https://travis-ci.com/ThatXliner/relaX)</sub>) is the result of running `pytest` over the `tests` directory in our [repo](https://github.com/ThatXliner/relaX) over a variety of python versions and OSes.
 
