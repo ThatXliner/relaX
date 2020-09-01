@@ -135,7 +135,11 @@ def get_config_file(
         else:  # Nah
             XFIG_PATH.write_text(
                 "---\n# This file was generated automatically by relaX.fig .\n"
-                + dump(pd, Dumper=Dumper, default_flow_style=False,)
+                + dump(
+                    pd,
+                    Dumper=Dumper,
+                    default_flow_style=False,
+                )
             )
 
     if XFIG_PATH.exists() and XFIG_PATH.is_file():

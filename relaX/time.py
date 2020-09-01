@@ -127,7 +127,11 @@ class Date(object):
             self.day += other.day
             self.year += other.year
             self.update()
-            return Date(month=self.month, day=self.day, year=self.year,)
+            return Date(
+                month=self.month,
+                day=self.day,
+                year=self.year,
+            )
 
         else:
             self.increment_days(other)
