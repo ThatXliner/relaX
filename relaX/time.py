@@ -50,12 +50,15 @@ def tomorrow() -> str:
 class Date(object):
     # TODO: Write better docs
     """A relaX-grade date object."""
-    def __init__(self,
-                 month=time.localtime(time.time()).tm_mon,
-                 day=time.localtime(time.time()).tm_mday,
-                 year=time.localtime(time.time()).tm_year,
-                 *args,
-                 **kwargs) -> None:
+
+    def __init__(
+        self,
+        month=time.localtime(time.time()).tm_mon,
+        day=time.localtime(time.time()).tm_mday,
+        year=time.localtime(time.time()).tm_year,
+        *args,
+        **kwargs
+    ) -> None:
         """This date object is a object wrapper of all of the functions defined in this file.
 
         :param type month: The month to set the date to. Defaults to
@@ -124,11 +127,7 @@ class Date(object):
             self.day += other.day
             self.year += other.year
             self.update()
-            return Date(
-                month=self.month,
-                day=self.day,
-                year=self.year,
-            )
+            return Date(month=self.month, day=self.day, year=self.year,)
 
         else:
             self.increment_days(other)
@@ -173,7 +172,8 @@ class Date(object):
         else:
             raise TypeError(
                 "Expected a Date object or an iterable with at begins with 3 numbers,"
-                " got %s" % repr(type(other)))
+                " got %s" % repr(type(other))
+            )
 
     @property
     def is_leap_year(self, year=None):
@@ -266,8 +266,7 @@ class Date(object):
         :rtype: str
 
         """
-        return self.days_before_today(
-            1)  # We explicitly use 1 to improve clarity.
+        return self.days_before_today(1)  # We explicitly use 1 to improve clarity.
 
     def today(self, *args, **kwargs) -> str:
         """
@@ -287,8 +286,7 @@ class Date(object):
         :rtype: str
 
         """
-        return self.days_after_today(
-            1)  # We explicitly use 1 to improve clarity.
+        return self.days_after_today(1)  # We explicitly use 1 to improve clarity.
 
     def increment_months(self, amount: int = 1):
         """Increments the amount of months after today.

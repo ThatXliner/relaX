@@ -47,7 +47,5 @@ setup(
     classifiers=CLASSIFIERS,
     python_requires=">=3.5",
     include_package_data=True,
-    install_requires=[
-        line for line in REQUIREMENTS if not line.startswith("#")
-    ],
+    install_requires=[line for line in REQUIREMENTS if not line.startswith("#")],
 )

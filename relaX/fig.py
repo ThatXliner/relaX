@@ -32,6 +32,7 @@ try:
 
         return p(path).expanduser()
 
+
 except ModuleNotFoundError:
     try:
         from pathlib import Path as p  # noqa: F401
@@ -43,7 +44,8 @@ except ModuleNotFoundError:
     except ModuleNotFoundError:
         raise ModuleNotFoundError(
             "You need to install the pathlib2 package. Try `python3 -m pip install "
-            "pathlib2` or `pip install pathlib2`")
+            "pathlib2` or `pip install pathlib2`"
+        )
 
 try:
     from yaml import load, safe_load, dump
@@ -56,16 +58,17 @@ try:
 except ModuleNotFoundError:
     raise ModuleNotFoundError(
         "You have to install the pyyaml package for relaX.fig . Try `python3 -m pip \
-install pyyaml` or `pip install pyyaml`")
+install pyyaml` or `pip install pyyaml`"
+    )
 
 ##########################################################################################
 # Main API ###############################################################################
 ##########################################################################################
 
 
-def get_config_file(config_file_name: str,
-                    safe: bool = False,
-                    defaults: dict = {}) -> dict:
+def get_config_file(
+    config_file_name: str, safe: bool = False, defaults: dict = {}
+) -> dict:
     """
     You should use this: this is the main API.
 
@@ -99,22 +102,22 @@ def get_config_file(config_file_name: str,
         if not new_config.exists():
             new_config.touch()
             new_config.write_text(
-                dump(defaults, Dumper=Dumper, default_flow_style=False))
+                dump(defaults, Dumper=Dumper, default_flow_style=False)
+            )
         else:  # The 'new' config file exists
             config_file_stuff = loads(new_config)
             if config_file_stuff is not None and config_file_stuff is dict:
                 new_config.write_text(
                     dump(
-                        {
-                            **config_file_stuff,
-                            **defaults
-                        },
+                        {**config_file_stuff, **defaults},
                         Dumper=Dumper,
                         default_flow_style=False,
-                    ))
+                    )
+                )
             else:
                 new_config.write_text(
-                    dump(defaults, Dumper=Dumper, default_flow_style=False))
+                    dump(defaults, Dumper=Dumper, default_flow_style=False)
+                )
         return str(new_config)
 
     def map_to_xindex(config_file_path):
@@ -124,21 +127,16 @@ def get_config_file(config_file_name: str,
             XFIG_PATH.write_text(
                 "---\n# This file was generated automatically by relaX.fig .\n"
                 + dump(
-                    {
-                        **config_file_stuff,
-                        **pd
-                    },  # Merging the two
+                    {**config_file_stuff, **pd},  # Merging the two
                     Dumper=Dumper,
                     default_flow_style=False,
-                ))
+                )
+            )
         else:  # Nah
             XFIG_PATH.write_text(
                 "---\n# This file was generated automatically by relaX.fig .\n"
-                + dump(
-                    pd,
-                    Dumper=Dumper,
-                    default_flow_style=False,
-                ))
+                + dump(pd, Dumper=Dumper, default_flow_style=False,)
+            )
 
     if XFIG_PATH.exists() and XFIG_PATH.is_file():
         try:

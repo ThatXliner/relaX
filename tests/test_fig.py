@@ -30,8 +30,7 @@ class TestClass(object):
         assert stuff == None
 
     def test_spam(self):
-        stuff = get_config_file("test", defaults={"have_spam":
-                                                  True})["have_spam"]
+        stuff = get_config_file("test", defaults={"have_spam": True})["have_spam"]
         assert stuff == True
         stuff = get_config_file("test")["have_spam"]
         assert stuff == True
