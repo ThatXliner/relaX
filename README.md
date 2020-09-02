@@ -1,4 +1,5 @@
-<p align="center"><a href="https://travis-ci.com/ThatXliner/relaX"><img src="https://travis-ci.com/ThatXliner/relaX.svg?branch=master" alt="Build Status"></a>
+<p align="center">
+  <a href="https://travis-ci.com/ThatXliner/relaX"><img src="https://travis-ci.com/ThatXliner/relaX.svg?branch=master" alt="Build Status"></a>
   <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
   <img src="https://img.shields.io/github/languages/code-size/ThatXliner/relaX" alt="GitHub code size in bytes">
   <img alt="GitHub" src="https://img.shields.io/github/license/ThatXliner/relaX">
@@ -6,6 +7,7 @@
   <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/relax-library">
   <img alt="PyPI - Status" src="https://img.shields.io/pypi/status/relax-library">
   <img alt="GitHub issues" src="https://img.shields.io/github/issues/ThatXliner/relax">
+  <a href="https://requires.io/github/ThatXliner/relaX/requirements/?branch=master"><img src="https://requires.io/github/ThatXliner/relaX/requirements.svg?branch=master" alt="Requirements Status" /></a>
 </p>
 
 ---
